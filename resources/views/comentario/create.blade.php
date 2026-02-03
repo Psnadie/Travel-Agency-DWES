@@ -1,5 +1,4 @@
 <!-- comentario/create.blade.php -->
-<!-- Este archivo se incluye dentro de vacacion/show.blade.php con @include -->
 
 <h4>Deja un comentario</h4>
 <form action="{{ route('comentario.store') }}" method="post">

@@ -55,14 +55,15 @@
           </ul>
 
           <!-- Barra de búsqueda (solo en la página principal) -->
-          @if(Route::currentNamedAs('main.index'))
-          <form class="d-flex me-2" role="search" method="get" action="{{ route('main.index') }}">
-            @foreach(request()->except(['page', 'q']) as $key => $value)
+          @if(request()->routeIs('main.index'))
+            <form class="d-flex me-2" role="search" method="get" action="{{ route('main.index') }}">
+              @foreach(request()->except(['page', 'q']) as $key => $value)
                 <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-            @endforeach
-            <input class="form-control me-2" name="q" type="search" placeholder="Buscar ofertas..." aria-label="Search" value="{{ $q ?? '' }}">
-            <button class="btn btn-outline-light" type="submit">Buscar</button>
-          </form>
+              @endforeach
+
+              <input class="form-control me-2" name="q" type="search" placeholder="Buscar vacaciones">
+              <button class="btn btn-outline-light" type="submit">Buscar</button>
+            </form>
           @endif
 
           <!-- Login / Logout -->
