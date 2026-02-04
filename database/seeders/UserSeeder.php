@@ -9,7 +9,6 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Usuario admin
         DB::table('users')->insert([
             'name' => 'Administrador',
             'email' => 'admin@vacaciones.com',
@@ -20,7 +19,6 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        // Usuario advanced
         DB::table('users')->insert([
             'name' => 'Usuario Advanced',
             'email' => 'advanced@vacaciones.com',
@@ -31,7 +29,6 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        // Usuario cliente
         DB::table('users')->insert([
             'name' => 'Cliente Demo',
             'email' => 'cliente@vacaciones.com',
