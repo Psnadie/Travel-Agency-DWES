@@ -74,40 +74,62 @@
 @endsection
 
 @section('content')
+
 <!-- Botones de ordenar y filtrar -->
 <div class="mb-4">
-    <a class="btn btn-info mb-2 me-2" data-bs-toggle="modal" data-bs-target="#orderModal">Ordenar por ...</a>
-    <a class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#filterModal">Filtrar por ...</a>
+    <a class="btn btn-info mb-2 me-2" data-bs-toggle="modal" data-bs-target="#orderModal">
+        Ordenar por ...
+    </a>
+    <a class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#filterModal">
+        Filtrar por ...
+    </a>
 </div>
 
 <!-- Tarjetas de ofertas -->
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-2">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
     @foreach($vacaciones as $vacacion)
-    <div class="col">
-        <div class="card shadow-sm h-100">
-            <!-- Imagen portada -->
-            <img src="{{ $vacacion->getPortada() }}" class="card-img-top" alt="{{ $vacacion->titulo }}" style="height: 200px; object-fit: cover;">
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <img src="{{ $vacacion->getPortada() }}"
+                     class="card-img-top"
+                     alt="{{ $vacacion->titulo }}"
+                     style="height: 200px; object-fit: cover;">
 
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">{{ $vacacion->titulo }}</h5>
-                <p class="card-text text-muted">{{ $vacacion->tipo->nombre }} · {{ $vacacion->pais }}</p>
-                <p class="card-text">{{ Str::limit($vacacion->descripcion, 100) }}</p>
-                <p class="card-text"><strong>{{ number_format($vacacion->precio, 2) }} €</strong></p>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ $vacacion->titulo }}</h5>
+                    <p class="card-text text-muted">
+                        {{ $vacacion->tipo->nombre }} · {{ $vacacion->pais }}
+                    </p>
+                    <p class="card-text">
+                        {{ Str::limit($vacacion->descripcion, 100) }}
+                    </p>
+                    <p class="card-text">
+                        <strong>{{ number_format($vacacion->precio, 2) }} €</strong>
+                    </p>
 
-                <div class="mt-auto">
-                    <a href="{{ route('vacacion.show', $vacacion->id) }}" class="btn btn-sm btn-outline-secondary">Ver detalle</a>
-                    @if(Auth::check() && (Auth::user()->isAdmin()))
-                        <a href="{{ route('vacacion.edit', $vacacion->id) }}" class="btn btn-sm btn-outline-warning">Editar</a>
-                    @endif
+                    <div class="mt-auto">
+                        <a href="{{ route('vacacion.show', $vacacion->id) }}"
+                           class="btn btn-sm btn-outline-secondary">
+                            Ver detalle
+                        </a>
+
+                        @if(Auth::check() && Auth::user()->isAdmin())
+                            <a href="{{ route('vacacion.edit', $vacacion->id) }}"
+                               class="btn btn-sm btn-outline-warning">
+                                Editar
+                            </a>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @endforeach
 </div>
 
-<!-- Paginación -->
 <div class="row">
-    {{ $vacaciones->onEachSide(2)->links() }}
+    <div class="col d-flex justify-content-center">
+        {{ $vacaciones->onEachSide(2)->links('pagination::bootstrap-5') }}
+    </div>
 </div>
+
 @endsection
